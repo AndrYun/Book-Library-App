@@ -8,6 +8,15 @@ const booksReducer = (state = initialState, action) => {
       return [...state, action.payload];
     case a.DELETE_BOOK:
       return state.filter((book) => book.id !== action.payload); // оставляем в массиве только те элементы, которые не равные id
+    case a.TOGGLE_FAVORITE:
+      return state.map((book) =>
+        book.id === action.payload
+          ? {
+              ...book,
+              isFavorite: !book.isFavorite,
+            }
+          : book
+      );
     default:
       return state;
   }
