@@ -3,6 +3,8 @@ import {
   setTitleFilter,
   selectTitleFilter,
   resetFilters,
+  setAuthorFilter,
+  selectAuthorFilter,
 } from '../../redux/slices/filterSlice';
 import './BookFilter.css';
 
@@ -19,6 +21,12 @@ const BookFilter = () => {
     dispatch(resetFilters());
   };
 
+  const authorFilter = useSelector(selectAuthorFilter);
+
+  const authorFilterChangeHanler = (e) => {
+    dispatch(setAuthorFilter(e.target.value));
+  };
+
   return (
     <div className="app-block filter">
       <div className="filter-row">
@@ -28,6 +36,14 @@ const BookFilter = () => {
             value={titleFilter}
             placeholder="Filter bi title"
             onChange={titleFilterChangeHandler}
+          />
+        </div>
+        <div className="filter-group">
+          <input
+            type="text"
+            value={authorFilter}
+            placeholder="Filter bi author"
+            onChange={authorFilterChangeHanler}
           />
         </div>
         <button type="button" onClick={resetFiltersHandler}>

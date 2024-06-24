@@ -1,12 +1,16 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { BsBookmarkStar, BsBookmarkPlusFill } from 'react-icons/bs';
 import { deleteBook, toggleFavorite } from '../../redux/books/actionCreators';
-import { selectTitleFilter } from '../../redux/slices/filterSlice';
+import {
+  selectAuthorFilter,
+  selectTitleFilter,
+} from '../../redux/slices/filterSlice';
 import './BookList.css';
 
 const BookList = () => {
   const books = useSelector((state) => state.books); // подписываемся на часть состояние - массив книг
   const titleFilter = useSelector(selectTitleFilter);
+  const authorFilter = useSelector(selectAuthorFilter);
   const dispatch = useDispatch();
 
   const toggleBookHandler = (id) => {
@@ -22,7 +26,11 @@ const BookList = () => {
       .toLowerCase()
       .includes(titleFilter.toLowerCase());
 
-    return matchesTitle;
+    const matchesAuthor = book.author
+      .toLowerCase()
+      .includes(authorFilter.toLowerCase());
+
+    return matchesTitle && matchesAuthor;
   });
 
   return (
