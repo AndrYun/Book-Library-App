@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import axios from 'axios';
-import { addBook } from '../../redux/slices/booksSlice';
+import { addBook, thunkFunciton } from '../../redux/slices/booksSlice';
 import createBookWithId from '../../utils/createBookWithId';
 import booksData from '../../data/books.json';
 import './BookForm.css';
@@ -31,17 +30,9 @@ const BookForm = () => {
     }
   };
 
-  //запрос на сервер асинхронный
-  const addBookRandomByApiHandler = async () => {
-    try {
-      const res = await axios.get('http://localhost:4000/random-book');
-      if (res.data && res.data.title && res.data.author) {
-        // сокращенно можно так: (res?.data?.title && res?.data?.author)
-        dispatch(addBook(createBookWithId(res.data, 'API')));
-      }
-    } catch (error) {
-      console.log('ВСЕ ПРОПАЛО, ШЕФ!');
-    }
+  // отправка в redux thunk fn
+  const addBookRandomByApiHandler = () => {
+    dispatch(thunkFunciton);
   };
 
   return (
