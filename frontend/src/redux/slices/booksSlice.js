@@ -1,13 +1,25 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import createBookWithId from '../../utils/createBookWithId';
 import axios from 'axios';
+import { setError } from './errorSlice';
 
 const initialState = [];
 
-export const fetchBook = createAsyncThunk('bookks/fethcBook', async () => {
-  const res = await axios.get('http://localhost:4000/random-book');
-  return res.data;
-});
+export const fetchBook = createAsyncThunk(
+  'bookks/fethcBook',
+  async (url, thunkAPI) => {
+    // thunkAPI это объект, в котором содержится все инфа о запросе (config, requestId, getState, dispathc и т.д)
+    // в том числе есть доступ к функции dispatch
+    try {
+      const res = await axios.get(url);
+      return res.data;
+    } catch (error) {
+      thunkAPI.dispatch(setError(error.message));
+      throw error; // выбрасываем ошибку, снова генерируем ее, чтобы не попасть в reducer.fullfiled выполненное состояние
+      // нам необходимо в блоке reducer попасть в состояние rejected, тем самым мы генерируем ошибку
+    }
+  }
+);
 
 const booksSlice = createSlice({
   name: 'books',

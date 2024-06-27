@@ -35,7 +35,7 @@ const BookForm = () => {
 
   // отправка в redux thunk fn
   const addBookRandomByApiHandler = () => {
-    dispatch(fetchBook());
+    dispatch(fetchBook('http://localhost:4000/random-book'));
   };
 
   return (
