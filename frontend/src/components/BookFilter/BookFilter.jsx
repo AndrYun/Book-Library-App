@@ -44,7 +44,7 @@ const BookFilter = () => {
           <input
             type="text"
             value={titleFilter}
-            placeholder="Filter bi title"
+            placeholder="Filter by title"
             onChange={titleFilterChangeHandler}
           />
         </div>
@@ -52,7 +52,7 @@ const BookFilter = () => {
           <input
             type="text"
             value={authorFilter}
-            placeholder="Filter bi author"
+            placeholder="Filter by author"
             onChange={authorFilterChangeHanler}
           />
         </div>
