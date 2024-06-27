@@ -49,6 +49,16 @@ const booksSlice = createSlice({
   },
   // extraReducer для запросов thunk fn на сервер
   // тем самым мы запихнули thunk fn внутрь slice
+
+  // Option 1 - иная запись extraReducers без использования спец слова builder
+  // extraReducers: {
+  //   [fetchBook.fulfilled]: (state, action) => {
+  //     if (action.payload.title && action.payload.author) {
+  //       state.push(createBookWithId(action.payload, 'API'));
+  //     }
+  //   }
+  // }
+  // Option 2
   extraReducers: (builder) => {
     builder.addCase(fetchBook.fulfilled, (state, action) => {
       if (action.payload.title && action.payload.author) {
